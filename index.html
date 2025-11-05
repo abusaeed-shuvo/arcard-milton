@@ -8,7 +8,8 @@
 				margin: 0;
 				overflow: hidden;
 			}
-			/* Overlay icons (always on screen) */
+
+			/* Overlay icons */
 			.social-icon {
 				position: absolute;
 				width: 50px;
@@ -48,7 +49,9 @@
 		/>
 
 		<a-scene
-			mindar-image="imageTargetSrc: https://abusaeed-shuvo.github.io/arcard-milton/targets/targets.mind;"
+			mindar-image="imageTargetSrc: https://abusaeed-shuvo.github.io/arcard-milton/targets/targets.mind; 
+                     uiLoading: false; 
+                     uiScanning: false;"
 			color-space="sRGB"
 			renderer="colorManagement: true, physicallyCorrectLights"
 			vr-mode-ui="enabled: false"
@@ -62,7 +65,7 @@
 
 				<video
 					id="introVideo"
-					src="https://yourdomain.com/intro.mp4"
+					src="https://youtu.be/dQw4w9WgXcQ?si=wUpYkAbrqtnf1h2r"
 					loop
 					crossorigin="anonymous"
 				></video>
@@ -81,7 +84,7 @@
 					animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
 				></a-gltf-model>
 
-				<!-- Intro Video as a plane -->
+				<!-- Intro Video -->
 				<a-video
 					src="#introVideo"
 					position="0 0.8 0"
