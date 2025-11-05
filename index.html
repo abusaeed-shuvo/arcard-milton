@@ -3,8 +3,50 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+		<style>
+			body {
+				margin: 0;
+				overflow: hidden;
+			}
+			/* Overlay icons (always on screen) */
+			.social-icon {
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				bottom: 20px;
+				cursor: pointer;
+				z-index: 10;
+			}
+			#githubIcon {
+				left: 20px;
+			}
+			#linkedinIcon {
+				left: 90px;
+			}
+			#emailIcon {
+				left: 160px;
+			}
+		</style>
 	</head>
+
 	<body>
+		<!-- Overlay icons -->
+		<img
+			id="githubIcon"
+			class="social-icon"
+			src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+		/>
+		<img
+			id="linkedinIcon"
+			class="social-icon"
+			src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+		/>
+		<img
+			id="emailIcon"
+			class="social-icon"
+			src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+		/>
+
 		<a-scene
 			mindar-image="imageTargetSrc: https://abusaeed-shuvo.github.io/arcard-milton/targets/targets.mind;"
 			color-space="sRGB"
@@ -13,34 +55,81 @@
 			device-orientation-permission-ui="enabled: false"
 		>
 			<a-assets>
-				<img
-					id="card"
-					src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png"
-				/>
 				<a-asset-item
 					id="avatarModel"
-					src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf"
+					src="https://abusaeed-shuvo.github.io/arcard-milton/models/business-model.glb"
 				></a-asset-item>
+
+				<video
+					id="introVideo"
+					src="https://yourdomain.com/intro.mp4"
+					loop
+					crossorigin="anonymous"
+				></video>
 			</a-assets>
 
 			<a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
+			<!-- AR Target -->
 			<a-entity mindar-image-target="targetIndex: 0">
-				<a-plane
-					src="#card"
-					position="0 0 0"
-					height="0.552"
-					width="1"
-				></a-plane>
+				<!-- 3D Model -->
 				<a-gltf-model
 					src="#avatarModel"
 					rotation="0 0 0"
 					position="0 0 0.1"
 					scale="0.005 0.005 0.005"
 					animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
-				>
-				</a-gltf-model>
+				></a-gltf-model>
+
+				<!-- Intro Video as a plane -->
+				<a-video
+					src="#introVideo"
+					position="0 0.8 0"
+					width="1.2"
+					height="0.7"
+					rotation="0 0 0"
+					autoplay
+					loop
+				></a-video>
+
+				<!-- Text Info -->
+				<a-text
+					value="John Doe"
+					position="0 1.6 0"
+					align="center"
+					color="#fff"
+					width="2"
+				></a-text>
+				<a-text
+					value="Business: AR Cards"
+					position="0 1.4 0"
+					align="center"
+					color="#fff"
+					width="2"
+				></a-text>
+				<a-text
+					value="Address: 123 Main Street, City"
+					position="0 1.2 0"
+					align="center"
+					color="#fff"
+					width="2"
+				></a-text>
 			</a-entity>
 		</a-scene>
+
+		<script>
+			// Overlay icon click events
+			document.getElementById("githubIcon").addEventListener("click", () => {
+				window.open("https://github.com/abusaeed-shuvo", "_blank");
+			});
+
+			document.getElementById("linkedinIcon").addEventListener("click", () => {
+				window.open("https://linkedin.com/in/abusaeed-shuvo", "_blank");
+			});
+
+			document.getElementById("emailIcon").addEventListener("click", () => {
+				window.location.href = "mailto:yourname@example.com";
+			});
+		</script>
 	</body>
 </html>
