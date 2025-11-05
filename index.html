@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AR Card</title>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no"
+		/>
+		<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+		<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+		<style>
+			body {
+				margin: 0;
+				overflow: hidden;
+			}
+			/* Fixed overlay icons */
+			.social-icon {
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				bottom: 20px; /* adjust position */
+				cursor: pointer;
+				z-index: 10;
+				background-color: wheat;
+			}
+			#githubIcon {
+				left: 20px;
+			}
+			#linkedinIcon {
+				left: 90px;
+			}
+		</style>
+	</head>
+
+	<body style="margin: 0; overflow: hidden">
+		<a-scene
+			embedded
+			arjs="sourceType: webcam; debugUIEnabled: false;"
+			cursor="rayOrigin: mouse"
+			raycaster="objects: .clickable"
+		>
+			<!-- Camera -->
+			<a-entity id="camera" camera></a-entity>
+
+			<!-- Marker -->
+			<a-marker
+				type="pattern"
+				url="https://abusaeed-shuvo.github.io/arcard-milton/markers/pattern-logo.patt"
+			>
+				<!-- 3D Model -->
+				<a-entity
+					face-camera
+					id="model"
+					position="0 0 0"
+					scale="0.8 0.8 0.8"
+					rotation="-90 0 0"
+					gltf-model="https://abusaeed-shuvo.github.io/arcard-milton/models/business-model.glb"
+				></a-entity>
+			</a-marker>
+		</a-scene>
+
+		<img
+			id="githubIcon"
+			class="social-icon"
+			src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+			style="display: none"
+		/>
+		<img
+			id="linkedinIcon"
+			class="social-icon"
+			src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+			style="display: none"
+		/>
+
+		<script>
+			// Make icons always face the camera
+			AFRAME.registerComponent("face-camera", {
+				tick: function () {
+					const cam = document.querySelector("[camera]");
+					if (!cam) return;
+					const camPos = new THREE.Vector3();
+					cam.object3D.getWorldPosition(camPos);
+					this.el.object3D.lookAt(camPos);
+				},
+			});
+			// Use cursor events for clicks/taps
+			const github = document.getElementById("githubIcon");
+			const linkedin = document.getElementById("linkedinIcon");
+
+			// Open links when clicked
+			github.addEventListener("click", () =>
+				window.open("https://github.com/abusaeed-shuvo", "_blank")
+			);
+			linkedin.addEventListener("click", () =>
+				window.open("https://linkedin.com/in/abusaeed-shuvo", "_blank")
+			);
+
+			const marker = document.querySelector("a-marker");
+
+			// Show icons when marker is detected
+			marker.addEventListener("markerFound", () => {
+				github.style.display = "block";
+				linkedin.style.display = "block";
+			});
+
+			// Hide icons when marker is lost
+			marker.addEventListener("markerLost", () => {
+				github.style.display = "none";
+				linkedin.style.display = "none";
+			});
+		</script>
+	</body>
+</html>
