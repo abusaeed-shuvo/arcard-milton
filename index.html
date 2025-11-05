@@ -8,15 +8,24 @@
 				margin: 0;
 				overflow: hidden;
 			}
+			#socialContainer {
+				position: absolute;
+				bottom: 20px; /* distance from bottom */
+				left: 20px; /* distance from left */
+				display: flex;
+				gap: 10px; /* spacing between icons */
+				padding: 10px;
+				border-radius: 15px; /* rounded corners */
+				background-color: rgba(0, 0, 0, 0.4); /* semi-transparent dark tint */
+				z-index: 10;
+				display: none;
+			}
 
 			/* Overlay icons */
 			.social-icon {
-				position: absolute;
 				width: 50px;
 				height: 50px;
-				bottom: 20px;
 				cursor: pointer;
-				z-index: 10;
 			}
 			#githubIcon {
 				left: 20px;
@@ -35,27 +44,28 @@
 
 	<body>
 		<!-- Overlay icons -->
-		<img
-			id="githubIcon"
-			class="social-icon"
-			src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-		/>
-		<img
-			id="linkedinIcon"
-			class="social-icon"
-			src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-		/>
-		<img
-			id="emailIcon"
-			class="social-icon"
-			src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
-		/>
-		<img
-			id="unmuteIcon"
-			class="social-icon"
-			src="https://cdn-icons-png.flaticon.com/512/727/727240.png"
-		/>
-
+		<div id="socialContainer">
+			<img
+				id="githubIcon"
+				class="social-icon"
+				src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+			/>
+			<img
+				id="linkedinIcon"
+				class="social-icon"
+				src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+			/>
+			<img
+				id="emailIcon"
+				class="social-icon"
+				src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+			/>
+			<img
+				id="unmuteIcon"
+				class="social-icon"
+				src="https://cdn-icons-png.flaticon.com/512/727/727240.png"
+			/>
+		</div>
 		<a-scene
 			mindar-image="imageTargetSrc: https://abusaeed-shuvo.github.io/arcard-milton/targets/targets.mind; 
                      uiLoading: false; 
@@ -130,6 +140,21 @@
 
 		<script>
 			const videoEl = document.getElementById("introVideo");
+			// Get the container
+			const socialContainer = document.getElementById("socialContainer");
+
+			// MindAR target entity
+			const target = document.querySelector("[mindar-image-target]");
+
+			// Show social icons when target is found
+			target.addEventListener("targetFound", () => {
+				socialContainer.style.display = "flex";
+			});
+
+			// Hide social icons when target is lost
+			target.addEventListener("targetLost", () => {
+				socialContainer.style.display = "none";
+			});
 
 			// Autoplay muted when AR target is found
 			document
