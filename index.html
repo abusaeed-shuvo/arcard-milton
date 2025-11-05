@@ -16,9 +16,30 @@
 				gap: 10px; /* spacing between icons */
 				padding: 10px;
 				border-radius: 15px; /* rounded corners */
-				background-color: rgba(0, 0, 0, 0.4); /* semi-transparent dark tint */
 				z-index: 10;
-				display: none;
+				display: none; /* initially hidden */
+
+				/* Default fallback color */
+				background-color: rgba(0, 0, 0, 0.4);
+			}
+
+			/* Dark mode */
+			@media (prefers-color-scheme: dark) {
+				#socialContainer {
+					background-color: rgba(
+						255,
+						255,
+						255,
+						0.2
+					); /* light tint on dark mode */
+				}
+			}
+
+			/* Light mode */
+			@media (prefers-color-scheme: light) {
+				#socialContainer {
+					background-color: rgba(0, 0, 0, 0.2); /* dark tint on light mode */
+				}
 			}
 
 			/* Overlay icons */
