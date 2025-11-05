@@ -27,6 +27,9 @@
 			#emailIcon {
 				left: 160px;
 			}
+			#unmuteIcon {
+				left: 230px;
+			}
 		</style>
 	</head>
 
@@ -46,6 +49,11 @@
 			id="emailIcon"
 			class="social-icon"
 			src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+		/>
+		<img
+			id="unmuteIcon"
+			class="social-icon"
+			src="https://cdn-icons-png.flaticon.com/512/727/727240.png"
 		/>
 
 		<a-scene
@@ -67,6 +75,8 @@
 					id="introVideo"
 					src="https://abusaeed-shuvo.github.io/arcard-milton/videos/intro.mp4"
 					loop
+					muted
+					playsinline
 					crossorigin="anonymous"
 				></video>
 			</a-assets>
@@ -91,8 +101,6 @@
 					width="1.2"
 					height="0.7"
 					rotation="0 0 0"
-					autoplay
-					loop
 				></a-video>
 
 				<!-- Text Info -->
@@ -121,17 +129,31 @@
 		</a-scene>
 
 		<script>
+			const videoEl = document.getElementById("introVideo");
+
+			// Autoplay muted when AR target is found
+			document
+				.querySelector("[mindar-image-target]")
+				.addEventListener("targetFound", () => {
+					videoEl.play();
+				});
+
 			// Overlay icon click events
 			document.getElementById("githubIcon").addEventListener("click", () => {
 				window.open("https://github.com/abusaeed-shuvo", "_blank");
 			});
-
 			document.getElementById("linkedinIcon").addEventListener("click", () => {
 				window.open("https://linkedin.com/in/abusaeed-shuvo", "_blank");
 			});
-
 			document.getElementById("emailIcon").addEventListener("click", () => {
 				window.location.href = "mailto:yourname@example.com";
+			});
+
+			// Unmute button
+			document.getElementById("unmuteIcon").addEventListener("click", () => {
+				videoEl.muted = false;
+				videoEl.play();
+				alert("Video unmuted!");
 			});
 		</script>
 	</body>
